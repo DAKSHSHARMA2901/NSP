@@ -8,8 +8,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
-// MongoDB connection
-mongoose.connect('mongodb://localhost:27017/nsp', { useNewUrlParser: true, useUnifiedTopology: true });
+// MongoDB Atlas connection
+const mongoURI = process.env.MONGODB_URI || "mongodb+srv://dakshsharma2901_db_user:aWzCvdX1lEhb343q@cluster0.ybs4gym.mongodb.net/nsp?retryWrites=true&w=majority";
+
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("✅ Connected to MongoDB Atlas"))
+  .catch(err => console.error("❌ MongoDB connection error:", err));
 
 // Schema
 const locationSchema = new mongoose.Schema({
@@ -53,5 +57,6 @@ app.get('/locations/:seo_name', async (req, res) => {
   res.render('location-page', { location: loc.location, seo_name: loc.seo_name });
 });
 
-// Start server
-app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+// Start server using Render's PORT or fallback to 3000
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
