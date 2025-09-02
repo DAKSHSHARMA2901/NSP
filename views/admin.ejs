@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>Admin Panel - Add Location</h1>
+  <form action="/admin/add-location" method="POST">
+    <label>Location Name:</label>
+    <input type="text" name="location" required />
+    <button type="submit">Add Location</button>
+  </form>
+  <a href="/locations">View All Locations</a>
+</body>
+</html>
